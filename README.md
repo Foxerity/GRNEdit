@@ -36,12 +36,24 @@
   <p><sup>*</sup>This work was completed during Feng Xie's internship at Xiaomi. We thank Xiaomi for its support.</p>
 </div>
 
-## Open-source plan
-
-- [x] Inference code
-- [x] Preprint paper
-- [ ] Training code
-- [ ] Model weights
+<table width="100%">
+  <tr>
+    <td width="42%" valign="top">
+      <h2>Open-source plan</h2>
+      <p>
+        &#9745;&nbsp; Inference code<br>
+        &#9745;&nbsp; Preprint paper<br>
+        &#9744;&nbsp; Training code<br>
+        &#9744;&nbsp; Model weights
+      </p>
+    </td>
+    <td width="58%" valign="top">
+      <h2>Updates &amp; contact</h2>
+      <p>We’ll keep sharing updates on GRNEdit. If you find our work interesting, don’t forget to leave us a ⭐.</p>
+      <p>📬 Questions about reproduction? Feel free to contact me at <a href="mailto:fengx@stu.xidian.edu.cn">fengx@stu.xidian.edu.cn</a>.</p>
+    </td>
+  </tr>
+</table>
 
 <h2 align="center">Visual results</h2>
 
