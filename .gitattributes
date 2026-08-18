@@ -1,0 +1,15 @@
+* text=auto
+
+*.sh text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.svg text eol=lf
+
+*.png binary
+*.gif binary
+*.mp4 binary
+*.webp binary
+*.pth binary
+*.ckpt binary

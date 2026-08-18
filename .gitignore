@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+/open-source/
+outputs/
+checkpoints/
+weights/
+data/
+wandb/
+runtime_cache/
+
+# Staged open-source release gate. Remove this block when training code is
+# announced; the local files remain available to the authors meanwhile.
+scripts/train_stage1.sh
+scripts/train_stage2.sh
+scripts/official_edit/train_stage15_layerwise_source_conditioned.py
+scripts/official_edit/train_stage2_residual_bridge.py
+scripts/official_edit/training_utils.py
+grn/official_edit_common/
+grn/official_edit_stage15/build.py
+grn/official_edit_stage15/lr_control.py
+grn/official_edit_stage15/trainer.py
+grn/official_edit_stage2/
