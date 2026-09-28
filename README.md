@@ -10,9 +10,7 @@
   <p>
     <a href="https://foxerity.github.io/GRNEdit/"><img src="https://img.shields.io/badge/Project-Page-c8ff6a.svg" alt="GRNEdit project page"></a>
     <a href="https://arxiv.org/pdf/2608.16328"><img src="https://img.shields.io/badge/arXiv%20paper-2608.16328-b31b1b.svg" alt="arXiv paper"></a>
-    <!--
-    <a href="https://huggingface.co/bytedance-research/GRN"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue.svg" alt="Hugging Face Models"></a>
-    -->
+    <a href="https://huggingface.co/debugg/GRNEdit"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue.svg" alt="Hugging Face Models"></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
   </p>
 
@@ -43,6 +41,7 @@
       <p>
         &#9745;&nbsp; Inference code<br>
         &#9745;&nbsp; Preprint paper<br>
+        &#9745;&nbsp; LoRA support<br>
         &#9744;&nbsp; Training code<br>
         &#9744;&nbsp; Model weights
       </p>
@@ -54,6 +53,40 @@
     </td>
   </tr>
 </table>
+
+## 🎉 Meet GRNEdit-2B Stage-LoRA!
+
+Better additions, stronger edits! LoRA fine-tuning improves GRNEdit's object
+addition quality and lifts its OpenVE-Bench overall score to **4.21**.
+With a **2B backbone and only ~1% extra conditioning parameters**, it outperforms
+the 14B open-source editors below on overall score.
+
+### OpenVE-Bench results
+
+The paper's main comparison, with our new **GRNEdit-2B Stage-LoRA** result added.
+Higher scores are better.
+
+| Method | Backbone | Time | Overall | Global style | Background | Local change | Removal | Addition | Subtitles | Cond. params |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| Runway Aleph | Commercial | — | 4.49 | 4.41 | 4.40 | 4.31 | 4.64 | 4.36 | 4.21 | N/A |
+| VACE | 14B | 545s | 3.01 | 3.46 | 2.81 | 2.47 | 3.99 | 1.76 | 4.41 | 3.05B |
+| Omni-Video | 11B | 312s | 3.66 | 3.41 | 4.11 | 3.75 | 4.52 | 2.80 | 4.95 | >4.6B |
+| InsViE | 2B | 64s | 3.25 | 3.63 | 2.68 | 2.82 | 3.56 | 2.25 | 4.77 | ~59M |
+| Lucy-Edit | 5B | 36s | 3.77 | 3.64 | 3.25 | 3.93 | 3.95 | 3.92 | 4.23 | ~0.6M |
+| Kiwi-Edit | 8B | 45s | 4.17 | 4.24 | 4.01 | 4.30 | 4.60 | 4.13 | 4.23 | 3B |
+| DITTO | 14B | 611s | 3.44 | 4.48 | 3.52 | 2.89 | 3.53 | 2.48 | 3.69 | 3.17B |
+| OpenVE-Edit | 5B | 150s | 3.89 | 4.24 | 4.10 | 3.80 | 3.50 | 3.41 | 3.98 | >3B |
+| LoomVideo | 5+8B | 166s | 4.09 | 4.44 | 3.91 | 4.02 | 4.22 | 4.21 | 4.66 | 89M |
+| UniVideo | 14B | 893s | 4.18 | 4.05 | 3.94 | 4.33 | 4.42 | 4.41 | 4.56 | >7B |
+| Lance | 7.1B | 99s | 4.01 | 3.99 | 4.01 | 3.72 | 4.17 | 4.29 | 4.17 | N/A |
+| GRNEdit-2B | 2B | 39s | 4.03 | 4.36 | 3.80 | 3.93 | 4.56 | 3.84 | 4.72 | 37M |
+| GRNEdit-8B | 8B | 84s | 4.18 | 4.37 | 4.12 | 4.09 | 4.73 | 3.86 | 4.86 | 45M |
+| **GRNEdit-2B Stage-LoRA** | **2B** | — | **4.21** | **4.19** | **4.11** | **4.33** | **4.55** | **4.40** | **4.37** | **~1% of backbone** |
+
+Cond. params counts the additional conditioning branches, not all fine-tuned
+parameters. Stage-LoRA also scores **3.88** on creative editing and **3.45** on
+camera editing, which are not separate columns in the paper's main table.
+Its inference time has not yet been reported.
 
 <h2 align="center">Visual results</h2>
 
@@ -152,6 +185,24 @@ For unsupported hardware or a correctness-oriented fallback, pass
 `--use_slow_attn 1`. The fallback uses PyTorch scaled-dot-product attention and
 is substantially slower.
 
+## Model zoo
+
+Weights are hosted in [debugg/GRNEdit](https://huggingface.co/debugg/GRNEdit/tree/main).
+The repository is currently private; these links will become publicly accessible
+when the weight release opens.
+
+| Model | Weights | Format | Public inference code |
+| --- | --- | --- | --- |
+| GRNEdit-2B | [Download](https://huggingface.co/debugg/GRNEdit/resolve/main/GRNEdit-2B.pth) | Full checkpoint, including EMA | `scripts/infer_stage1.sh` |
+| GRNEdit-2B Stage-LoRA | [Download](https://huggingface.co/debugg/GRNEdit/resolve/main/GRNEdit-2B-Stage-LoRA.pth) | Full backbone + LoRA + source branches | `scripts/infer_stage_lora.sh` |
+| GRNEdit-8B | [Weight parts](https://huggingface.co/debugg/GRNEdit/tree/main/GRNEdit-8B) | Split full checkpoint | Not released yet |
+
+The public inference release supports **2B only**. The full Stage-LoRA checkpoint
+does not need a separate base GRN checkpoint; both variants still need their
+matching VAE and UMT5 resources. Original training checkpoints must retain the
+runtime metadata required by the loader; uploading weights alone does not supply
+missing configuration.
+
 ## Required files
 
 The weight release is a later milestone. Once available, use this layout:
@@ -195,7 +246,7 @@ choice, and inference rejects a conflicting override.
 ## GRNEdit inference
 
 ```bash
-export CHECKPOINT_PATH="checkpoints/stage1/global_step_40000.pth" # GRNEdit checkpoint file
+export CHECKPOINT_PATH="checkpoints/GRNEdit-2B.pth"               # Full checkpoint or split-checkpoint directory
 export WEIGHTS_DIR="weights"                                    # GRN, tokenizer, VAE, and T5 weight root
 export EDIT_OFFICIAL_META_ROOT="data/metadata"                  # Root containing input JSONL metadata
 export EDIT_OFFICIAL_META_SUBDIRS=""                            # Optional comma-separated subset directories
@@ -225,6 +276,61 @@ The launcher also forwards arguments appended after the script name. Model
 architecture, seven-chunk layout, endpoint source-injection mask, and
 `text_pt` residual modulation remain fixed because they form part of the
 checkpoint contract.
+
+### Stage-LoRA inference (2B)
+
+Install the additional LoRA dependencies in the same environment:
+
+```bash
+pip install -r requirements-stage-lora.txt
+```
+
+```bash
+export CHECKPOINT_PATH="checkpoints/GRNEdit-2B-Stage-LoRA.pth" # Full Stage-LoRA checkpoint or split directory
+export WEIGHTS_DIR="weights"                                # VAE and UMT5 resource root
+export VAE_PATH="weights/HBQ_image_video_tokenizer_64dim_M4_20260626.ckpt" # Matching Stage-LoRA tokenizer
+export T5_PATH="weights/umt5-xxl"                            # UMT5 encoder and tokenizer root
+export EDIT_OFFICIAL_META_ROOT="data/metadata"               # Source-video JSONL metadata
+export EDIT_OFFICIAL_META_SUBDIRS=""                         # Optional comma-separated subsets
+export OUTPUT_DIR="outputs/stage_lora"                       # Generated videos and per-rank result JSONL
+export GPUS=1                                              # Independent inference processes, one per GPU
+export NUM_SAMPLES_PER_DATASET=4                            # 0 processes every metadata row
+export SHUFFLE=1                                           # Shuffle before selecting samples
+export SAMPLE_SEED=42                                      # Metadata selection seed
+export SEED=1234                                           # Video generation seed
+export GUIDANCE_MODE=none                                  # Conditional-only inference; no CFG branch
+export MAX_INFER_STEPS=50                                  # Refinement iterations
+export TEMPERATURE=1.0                                     # Token sampling temperature
+export SNR_SHIFT=1.0                                       # Refinement signal-to-noise shift
+export USE_SLOW_ATTN=0                                     # 0: FA4; 1: explicit, slower SDPA fallback
+export SKIP_EXISTING=1                                     # Skip videos already generated in OUTPUT_DIR
+bash scripts/infer_stage_lora.sh
+```
+
+Branch positions/count, LoRA rank, alpha, and text-conditioning settings are
+restored from the checkpoint; there is no need to enter them manually. The
+source video, instruction, frame interval, and FPS are sufficient for inference;
+target videos are not needed. The instruction field and optional `reprompt`
+must match the checkpoint's text settings.
+
+For a compact adapter export, set `CHECKPOINT_PATH` to the adapter directory
+and `BASE_CHECKPOINT` to its matching GRN base weights. The directory must include
+`adapter_model.safetensors`, `source_branch.safetensors`,
+`stage_lora_config.json`, and `runtime.json`.
+
+### Split checkpoints: no manual merge needed
+
+Both 2B inference launchers accept a directory containing numbered byte parts
+(`NAME.pth.000.part`, `NAME.pth.001.part`, …) and `SHA256SUMS`, whose entry is
+the SHA-256 of the complete `NAME.pth` file. Download **all** parts and the checksum
+file, then point `CHECKPOINT_PATH` at that directory.
+
+The first run streams the parts into a verified full checkpoint under
+`~/.cache/grnedit/checkpoints`; later runs reuse it. Set
+`GRNEDIT_CHECKPOINT_CACHE` to choose another cache disk. Assembly requires extra
+free space equal to the complete checkpoint size, but does not load the whole
+file into RAM. Concurrent workers share a merge lock. Source files are unchanged.
+This packaging support does **not** enable 8B inference.
 
 ## Acknowledgements
 

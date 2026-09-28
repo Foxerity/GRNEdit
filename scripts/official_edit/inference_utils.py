@@ -211,6 +211,9 @@ def _load_text_encoder(args: SimpleNamespace, device: torch.device):
 
 
 def _extract_model_state(path: str, use_ema: bool) -> Dict[str, torch.Tensor]:
+    from grn.utils.checkpoint_parts import resolve_checkpoint_path
+
+    path = str(resolve_checkpoint_path(path))
     _require_file(path, "Checkpoint")
     checkpoint = torch.load(path, map_location="cpu", weights_only=False, mmap=True)
     trainer_state = checkpoint.get("trainer") if isinstance(checkpoint, dict) else None

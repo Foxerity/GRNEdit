@@ -24,3 +24,14 @@ grn/official_edit_stage15/build.py
 grn/official_edit_stage15/lr_control.py
 grn/official_edit_stage15/trainer.py
 grn/official_edit_stage2/
+
+# Stage-LoRA training release gate. Inference is public; remove these entries
+# when publishing training. Shared model and data primitives remain public.
+grn/official_edit_stage_lora/build.py
+grn/official_edit_stage_lora/trainer.py
+grn/official_edit_stage_lora/dataset_adapter.py
+grn/official_edit_stage_lora/dataset_args.py
+grn/official_edit_stage_lora/global_refine.py
+grn/official_edit_stage_lora/README.md
+scripts/train_stage_lora.sh
+scripts/official_edit/train_stage_lora.py

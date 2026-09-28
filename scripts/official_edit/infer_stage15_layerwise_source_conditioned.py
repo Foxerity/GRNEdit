@@ -647,6 +647,10 @@ def _infer_one(
 
 def main() -> None:
     cli = _parse_args()
+    from grn.utils.checkpoint_parts import resolve_checkpoint_path
+
+    if cli.checkpoint_path:
+        cli.checkpoint_path = str(resolve_checkpoint_path(cli.checkpoint_path))
     _maybe_launch_distributed(cli)
     if not cli.checkpoint_path:
         raise ValueError("Set CHECKPOINT_PATH or --checkpoint_path for Stage1.5 edit inference.")

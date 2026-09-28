@@ -1,0 +1,4 @@
+# Install after the base environment.yml environment.
+peft==0.19.1
+accelerate==1.15.0
+safetensors==0.8.0
