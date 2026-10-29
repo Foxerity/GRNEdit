@@ -67,7 +67,7 @@ const releaseMilestones = [
   { index: "02", label: "Preprint", status: "Available", complete: true },
   { index: "03", label: "LoRA support", status: "Available", complete: true },
   { index: "04", label: "Training code", status: "Planned", complete: false },
-  { index: "05", label: "Model weights", status: "Planned", complete: false },
+  { index: "05", label: "Model weights", status: "Available", complete: true },
 ];
 
 const arxivId = "2608.16328";

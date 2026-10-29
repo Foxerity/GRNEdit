@@ -43,7 +43,7 @@
         &#9745;&nbsp; Preprint paper<br>
         &#9745;&nbsp; LoRA support<br>
         &#9744;&nbsp; Training code<br>
-        &#9744;&nbsp; Model weights
+        &#9745;&nbsp; Model weights
       </p>
     </td>
     <td width="58%" valign="top">
@@ -188,8 +188,8 @@ is substantially slower.
 ## Model zoo
 
 Weights are hosted in [debugg/GRNEdit](https://huggingface.co/debugg/GRNEdit/tree/main).
-The repository is currently private; these links will become publicly accessible
-when the weight release opens.
+All three weight releases are publicly downloadable without login or an access
+request.
 
 | Model | Weights | Format | Public inference code |
 | --- | --- | --- | --- |
@@ -205,12 +205,13 @@ missing configuration.
 
 ## Required files
 
-The weight release is a later milestone. Once available, use this layout:
+Download the GRNEdit checkpoint from the model zoo into `checkpoints/`, then
+prepare the matching VAE and UMT5 resources under `weights/`:
 
 ```text
 weights/
-├── GRN_T2V_2B.pth
 ├── HBQ_tokenizer_64dim_M4.ckpt
+├── HBQ_image_video_tokenizer_64dim_M4_20260626.ckpt # Stage-LoRA VAE
 └── umt5-xxl/
     ├── models_t5_umt5-xxl-enc-bf16.pth
     └── umt5-xxl/
